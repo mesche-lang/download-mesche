@@ -921,7 +921,7 @@ async function downloadGambit() {
   const token = core.getInput('artifact-token', { required: true });
   const api = new github.GitHub(token);
   const [owner, repo] = core.getInput('repo').split('/');
-  const localPath = core.getInput('localPath');
+  const localPath = core.getInput('local-path');
 
   const buildOptions = {
     owner,
