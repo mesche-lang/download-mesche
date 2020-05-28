@@ -3,7 +3,8 @@ const github = require("@actions/github");
 const tc = require('@actions/tool-cache');
 
 async function downloadGambit() {
-  const api = new github.GitHub(core.getInput('github-token', { required: true }));
+  const token = core.getInput('github-token', { required: true });
+  const api = new github.GitHub(token);
   const [owner, repo] = core.getInput('repo').split('/');
   const localPath = core.getInput('localPath');
 
@@ -17,7 +18,7 @@ async function downloadGambit() {
   };
 
   const artifactUrl = await getArtifactUrl(api, buildOptions);
-  const downloadPath = await tc.downloadTool(artifactUrl);
+  const downloadPath = await tc.downloadTool(artifactUrl, undefined, `token ${token}`);
 
   let fullPath = undefined;
   if (buildOptions.os.startsWith("win")) {
