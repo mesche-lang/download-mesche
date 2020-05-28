@@ -9,8 +9,48 @@ on:
       - master
 
 jobs:
+  Windows-msvc:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: ./ # Use the action at root of the repo
+      with:
+        artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
+
+    - name: Run Gambit
+      run: gsc -v
+
+  Windows-mingw:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: ./ # Use the action at root of the repo
+      with:
+        os: win-mingw
+        artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
+
+    - name: Run Gambit
+      run: gsc -v
+
   Linux:
     runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: ./ # Use the action at root of the repo
+      with:
+        artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
+
+    - name: Run Gambit
+      run: gsc -v
+
+  MacOS:
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v2
