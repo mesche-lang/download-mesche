@@ -934,12 +934,15 @@ async function downloadGambit() {
 
   const artifactUrl = await getArtifactUrl(api, buildOptions);
   const downloadPath = await tc.downloadTool(artifactUrl, undefined, `token ${token}`);
+  const gambitPath = path.join(process.env.GITHUB_WORKSPACE, localPath);
 
-  let fullPath = await tc.extractZip(downloadPath, localPath);
+  console.log(`Downloading Gambit to path: ${gambitPath}`);
+
+  let fullPath = await tc.extractZip(downloadPath, gambitPath);
   if (!buildOptions.os.startsWith("win")) {
     const innerTarGzPath = path.join(fullPath, `gambit-${buildOptions.os}-${buildOptions.arch}.tar.gz`);
     console.log(`Extracting inner archive: ${innerTarGzPath}`)
-    fullPath = await tc.extractTar(innerTarGzPath, localPath);
+    fullPath = await tc.extractTar(innerTarGzPath, gambitPath);
   }
 
   console.log(`Gambit build extracted to local path: ${fullPath}`);
