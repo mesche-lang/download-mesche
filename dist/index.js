@@ -917,7 +917,8 @@ const github = __webpack_require__(469);
 const tc = __webpack_require__(533);
 
 async function downloadGambit() {
-  const api = new github.GitHub(core.getInput('github-token', { required: true }));
+  const token = core.getInput('artifact-token', { required: true });
+  const api = new github.GitHub(token);
   const [owner, repo] = core.getInput('repo').split('/');
   const localPath = core.getInput('localPath');
 
@@ -931,7 +932,7 @@ async function downloadGambit() {
   };
 
   const artifactUrl = await getArtifactUrl(api, buildOptions);
-  const downloadPath = await tc.downloadTool(artifactUrl);
+  const downloadPath = await tc.downloadTool(artifactUrl, undefined, `token ${token}`);
 
   let fullPath = undefined;
   if (buildOptions.os.startsWith("win")) {
