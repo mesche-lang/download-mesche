@@ -1,3 +1,4 @@
+const path = require("path");
 const core = require("@actions/core");
 const github = require("@actions/github");
 const tc = require('@actions/tool-cache');
@@ -20,11 +21,11 @@ async function downloadGambit() {
   const artifactUrl = await getArtifactUrl(api, buildOptions);
   const downloadPath = await tc.downloadTool(artifactUrl, undefined, `token ${token}`);
 
-  let fullPath = undefined;
-  if (buildOptions.os.startsWith("win")) {
-    fullPath = await tc.extractZip(downloadPath, localPath);
-  } else {
-    fullPath = await tc.extractTar(downloadPath, localPath);
+  let fullPath = await tc.extractZip(downloadPath, localPath);
+  if (!buildOptions.os.startsWith("win")) {
+    const innerTarGzPath = path.join(fullPath, `gambit-${os}-${arch}.tar.gz`);
+    console.log(`Extracting inner archive: ${innerTarGzPath}`)
+    fullPath = await tc.extractTar(innerTarGzPath, localPath);
   }
 
   // Add folder to cache
