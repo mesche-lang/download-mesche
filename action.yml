@@ -1,0 +1,37 @@
+name: Download Gambit Scheme
+author: David Wilson
+description: Downloads a Gambit Scheme build for CI jobs
+branding:
+  icon: download
+  color: yellow
+inputs:
+  github-token:
+    description: The GitHub token to use for API requests.  In most cases you will use "${{ secrets.GITHUB_TOKEN }}" here.
+    required: true
+  os:
+    description: Optional. The target OS of the desired build. Possible values: linux, macos, win-msvc, win-mingw. Defaults to the operating system on which this action is being executed (win-msvc for Windows).
+    required: false
+    default: ''
+  arch:
+    description: Optional. The architecture of the desired build. Possible values: x86_64, i686. Defaults to x86_64.
+    required: false
+    default: 'x86_64'
+  repo:
+    description: Optional. The repository from which builds will be downloaded. Defaults to gambit/gambit.
+    required: false
+    default: gambit/gambit
+  workflow-name:
+    description: Optional. The name of the GitHub Actions workflow that produces build artifacts. Defaults to 'Gambit - CI'
+    required: false
+    default: 'Gambit - CI'
+  branch:
+    description: Optional. The branch from which builds will be downloaded. Defaults to master.
+    required: false
+    default: master
+  local-path:
+    description: Optional. The local path to which the Gambit build will be unpacked.  Defaults to ./gambit.
+    required: false
+    default: './gambit'
+runs:
+  using: node12
+  main: dist/index.js

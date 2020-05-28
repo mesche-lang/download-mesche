@@ -1,0 +1,23 @@
+name: Download Gambit - CI
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  DownloadTest:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: ./ # Use the action at root of the repo
+
+    - name: Run Gambit
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+      run: gsc -v

@@ -1,0 +1,33 @@
+{
+  "name": "download-gambit",
+  "version": "1.0.0",
+  "description": "Downloads a Gambit Scheme build for CI jobs",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build index.js"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "@actions/github": "^2.2.0",
+    "@actions/tool-cache": "^1.5.5"
+  },
+  "devDependencies": {
+    "@octokit/webhooks": "^7.6.2",
+    "@zeit/ncc": "^0.22.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daviwil/download-gambit.git"
+  },
+  "keywords": [
+    "gambit",
+    "scheme",
+    "github-actions"
+  ],
+  "author": "David Wilson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daviwil/download-gambit/issues"
+  },
+  "homepage": "https://github.com/daviwil/download-gambit#readme"
+}
