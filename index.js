@@ -28,11 +28,13 @@ async function downloadGambit() {
     fullPath = await tc.extractTar(innerTarGzPath, localPath);
   }
 
+  console.log(`Gambit build extracted to local path: ${fullPath}`);
+
   // Add folder to cache
   // https://github.com/actions/toolkit/tree/master/packages/tool-cache#cache
 
   // Add local Gambit directory to PATH for future steps
-  core.addPath(fullPath);
+  core.addPath(path.join(fullPath, "bin"));
 }
 
 function getDefaultOS() {
