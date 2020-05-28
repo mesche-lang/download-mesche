@@ -44,7 +44,7 @@ The local path to which the Gambit build will be unpacked.  Defaults to `./gambi
 ```yaml
 jobs:
   Linux:
-    runs-on: ubunt-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: daviwil/download-gambit@v1
       with:
