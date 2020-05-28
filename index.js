@@ -23,7 +23,7 @@ async function downloadGambit() {
 
   let fullPath = await tc.extractZip(downloadPath, localPath);
   if (!buildOptions.os.startsWith("win")) {
-    const innerTarGzPath = path.join(fullPath, `gambit-${os}-${arch}.tar.gz`);
+    const innerTarGzPath = path.join(fullPath, `gambit-${buildOptions.os}-${buildOptions.arch}.tar.gz`);
     console.log(`Extracting inner archive: ${innerTarGzPath}`)
     fullPath = await tc.extractTar(innerTarGzPath, localPath);
   }
