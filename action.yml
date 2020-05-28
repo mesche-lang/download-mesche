@@ -6,7 +6,7 @@ branding:
   color: yellow
 inputs:
   github-token:
-    description: The GitHub token to use for API requests.  In most cases you will use "${{ secrets.GITHUB_TOKEN }}" here.
+    description: The GitHub token to use for API requests.  In most cases you will use {{ secrets.GITHUB_TOKEN }} here.
     required: true
   os:
     description: Optional. The target OS of the desired build. Possible values: linux, macos, win-msvc, win-mingw. Defaults to the operating system on which this action is being executed (win-msvc for Windows).
