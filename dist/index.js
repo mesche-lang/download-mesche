@@ -963,6 +963,8 @@ function getDefaultOS() {
 async function getArtifactUrl(api, options) {
   const { owner, repo, branch, os, arch, workflowName } = options;
 
+  console.log(`Looking for workflows in repo: ${owner}/${repo}`);
+
   const workflows = await api.actions.listRepoWorkflows({
     owner,
     repo
@@ -975,6 +977,8 @@ async function getArtifactUrl(api, options) {
   if (!workflow) {
     throw new Error(`Repository '${owner}/${repo}' does not have a workflow named ${workflowName}.`);
   }
+
+  console.log(`Found workflow named ${workflowName}`);
 
   const runs = await api.actions.listWorkflowRuns({
     owner,
@@ -989,6 +993,12 @@ async function getArtifactUrl(api, options) {
     r => r.conclusion === "success"
   );
 
+  if (!latestRun) {
+    throw new Error(`Could not find a successful run for workflow ${workflowName} in repop ${owner}/${repo}.`);
+  }
+
+  console.log(`Found latest run: ${latestRun.id}`);
+
   const artifacts = await api.actions.listWorkflowRunArtifacts({
     owner,
     repo,
@@ -1000,10 +1010,18 @@ async function getArtifactUrl(api, options) {
     a => a.name === artifactToFind
   );
 
+  if (!foundArtifact) {
+    throw new Error(`Could not find an artifact named 'artifactToFind' in the completed job.`);
+  }
+
+  console.log(`Found artifact URL: ${foundArtifact.archive_download_url}`);
+
   return foundArtifact.archive_download_url;
 }
 
-downloadGambit();
+downloadGambit().catch(function (error) {
+  core.setFailed(error.message);
+});
 
 
 /***/ }),
