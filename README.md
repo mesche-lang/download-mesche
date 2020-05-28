@@ -38,3 +38,20 @@ The branch from which builds will be downloaded. Defaults to `master`.
 ### `local-path`
 
 The local path to which the Gambit build will be unpacked.  Defaults to `./gambit`.
+
+## Example
+
+```yaml
+jobs:
+  Linux:
+    runs-on: ubunt-latest
+    steps:
+    - uses: daviwil/download-gambit@v1
+      with:
+        # Make sure to create the secret ARTIFACT_TOKEN with a personal
+        # access token containing `public:repo` permissions.
+        artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
+
+    - name: Run Gambit
+      run: gsc -v
+```
