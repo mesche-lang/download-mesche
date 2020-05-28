@@ -16,8 +16,8 @@ jobs:
     - uses: actions/checkout@v2
 
     - uses: ./ # Use the action at root of the repo
-
-    - name: Run Gambit
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Run Gambit
       run: gsc -v
