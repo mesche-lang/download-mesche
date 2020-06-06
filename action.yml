@@ -21,9 +21,9 @@ inputs:
     required: false
     default: gambit/gambit
   workflow-name:
-    description: "Optional. The name of the GitHub Actions workflow that produces build artifacts. Defaults to 'Gambit - CI'"
+    description: "Optional. The name of the GitHub Actions workflow that produces build artifacts. Defaults to 'Gambit'"
     required: false
-    default: 'Gambit - CI'
+    default: 'Gambit'
   branch:
     description: "Optional. The branch from which builds will be downloaded. Defaults to master."
     required: false
