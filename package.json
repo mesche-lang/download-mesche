@@ -4,7 +4,8 @@
   "description": "Downloads a Gambit Scheme build for CI jobs",
   "main": "dist/index.js",
   "scripts": {
-    "build": "ncc build index.js"
+    "build": "ncc build index.js",
+    "publish": "git tag -d v1 && git tag v1 -m 'v1 of daviwil/download-gambit' && git push -f origin v1"
   },
   "dependencies": {
     "@actions/core": "^1.2.4",
