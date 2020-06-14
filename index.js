@@ -18,6 +18,7 @@ async function downloadGambit() {
     workflowName:  core.getInput('workflow-name')
   };
 
+  const artifactName = getArtifactName(buildOptions);
   const artifactUrl = await getArtifactUrl(api, buildOptions);
   const downloadPath = await tc.downloadTool(artifactUrl, undefined, `token ${token}`);
   const gambitPath = path.join(process.env.GITHUB_WORKSPACE, localPath);
@@ -26,18 +27,20 @@ async function downloadGambit() {
 
   let fullPath = await tc.extractZip(downloadPath, gambitPath);
   if (!buildOptions.os.startsWith("win")) {
-    const innerTarGzPath = path.join(fullPath, `gambit-${buildOptions.os}-${buildOptions.arch}.tar.gz`);
+    const innerTarGzPath = path.join(fullPath, `${artifactName}.tgz`);
     console.log(`Extracting inner archive: ${innerTarGzPath}`)
-    fullPath = await tc.extractTar(innerTarGzPath, gambitPath);
+    fullPath = await tc.extractTar(innerTarGzPath, gambitPath, "--overwrite");
   }
 
   console.log(`Gambit build extracted to local path: ${fullPath}`);
 
-  // Add folder to cache
-  // https://github.com/actions/toolkit/tree/master/packages/tool-cache#cache
-
   // Add local Gambit directory to PATH for future steps
-  core.addPath(path.join(fullPath, "bin"));
+  if (os !== "boot") {
+    // Add folder to cache
+    // https://github.com/actions/toolkit/tree/master/packages/tool-cache#cache
+
+    core.addPath(path.join(fullPath, "bin"));
+  }
 }
 
 function getDefaultOS() {
@@ -51,6 +54,12 @@ function getDefaultOS() {
   default:
     throw new Error(`Unsupported platform: ${process.platform}`);
   }
+}
+
+function getArtifactName(options) {
+  return options.os === "boot"
+    ? `boot`
+    : `gambit-${options.os}-${options.arch}`;
 }
 
 async function getArtifactUrl(api, options) {
@@ -98,13 +107,13 @@ async function getArtifactUrl(api, options) {
     run_id: latestRun.id
   });
 
-  const artifactToFind = `gambit-${os}-${arch}`;
+  const artifactToFind = getArtifactName(options);
   const foundArtifact = artifacts.data.artifacts.find(
     a => a.name === artifactToFind
   );
 
   if (!foundArtifact) {
-    throw new Error(`Could not find an artifact named 'artifactToFind' in the completed job.`);
+    throw new Error(`Could not find an artifact named '${artifactToFind}' in the completed job.`);
   }
 
   console.log(`Found artifact URL: ${foundArtifact.archive_download_url}`);

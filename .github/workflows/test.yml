@@ -61,3 +61,18 @@ jobs:
 
     - name: Run Gambit
       run: gsc -v
+
+  Boot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: ./ # Use the action at root of the repo
+      with:
+        os: boot
+        local-path: ./
+        artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
+
+    - name: List Files
+      run: ls -al ./boot/

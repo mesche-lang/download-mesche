@@ -9,11 +9,11 @@ inputs:
     description: "The GitHub token to use for artifact download requests.  At a minimum the token will will need 'public:repo' permissions."
     required: true
   os:
-    description: "Optional. The target OS of the desired build. Possible values: linux, macos, win-msvc, win-mingw. Defaults to the operating system on which this action is being executed (win-msvc for Windows)."
+    description: "Optional. The target OS of the desired build. Possible values: linux, macos, win-msvc, win-mingw, boot (bootstrapped Gambit source). Defaults to the operating system on which this action is being executed (win-msvc for Windows)."
     required: false
     default: ''
   arch:
-    description: "Optional. The architecture of the desired build. Possible values: x86_64, i686. Defaults to x86_64."
+    description: "Optional. The architecture of the desired build (ignored when os = boot). Possible values: x86_64, i686. Defaults to x86_64."
     required: false
     default: 'x86_64'
   repo:
