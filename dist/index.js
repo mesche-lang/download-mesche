@@ -949,7 +949,7 @@ async function downloadGambit() {
   console.log(`Gambit build extracted to local path: ${fullPath}`);
 
   // Add local Gambit directory to PATH for future steps
-  if (os !== "boot") {
+  if (buildOptions.os !== "boot") {
     // Add folder to cache
     // https://github.com/actions/toolkit/tree/master/packages/tool-cache#cache
 
