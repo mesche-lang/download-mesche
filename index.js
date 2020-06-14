@@ -29,7 +29,7 @@ async function downloadGambit() {
   if (!buildOptions.os.startsWith("win")) {
     const innerTarGzPath = path.join(fullPath, `${artifactName}.tgz`);
     console.log(`Extracting inner archive: ${innerTarGzPath}`)
-    fullPath = await tc.extractTar(innerTarGzPath, gambitPath, ["xz", "--overwrite"]);
+    fullPath = await tc.extractTar(innerTarGzPath, gambitPath);
   }
 
   console.log(`Gambit build extracted to local path: ${fullPath}`);
