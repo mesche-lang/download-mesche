@@ -72,6 +72,8 @@ jobs:
       with:
         os: boot
         local-path: ./
+        repo: daviwil/gambit
+        branch: make-dist-ci
         artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
 
     - name: List Files
