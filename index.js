@@ -25,17 +25,11 @@ async function downloadMesche() {
     undefined,
     `token ${token}`
   );
-  const gambitPath = path.join(process.env.GITHUB_WORKSPACE, localPath);
+  const meschePath = path.join(process.env.GITHUB_WORKSPACE, localPath);
 
-  console.log(`Downloading Mesche to path: ${gambitPath}`);
+  console.log(`Downloading Mesche to path: ${meschePath}`);
 
-  let fullPath = await tc.extractZip(downloadPath, gambitPath);
-  if (!buildOptions.os.startsWith("win")) {
-    const innerTarGzPath = path.join(fullPath, `${artifactName}.tgz`);
-    console.log(`Extracting inner archive: ${innerTarGzPath}`);
-    fullPath = await tc.extractTar(innerTarGzPath, gambitPath);
-  }
-
+  let fullPath = await tc.extractZip(downloadPath, meschePath);
   console.log(`Mesche build extracted to local path: ${fullPath}`);
 
   // Add local Mesche directory to PATH for future steps
@@ -61,9 +55,7 @@ function getDefaultOS() {
 }
 
 function getArtifactName(options) {
-  return options.os === "boot"
-    ? `boot`
-    : `gambit-${options.os}-${options.arch}`;
+  return `mesche-${options.os}-${options.arch}`;
 }
 
 async function getArtifactUrl(api, options) {
