@@ -12358,7 +12358,7 @@ const tc = __nccwpck_require__(7784);
 
 async function downloadMesche() {
   const token = core.getInput("artifact-token", { required: true });
-  const api = new github.GitHub(token);
+  const api = new github.getOctokit(token);
   const [owner, repo] = core.getInput("repo").split("/");
   const localPath = core.getInput("local-path");
 
