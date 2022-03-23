@@ -1,34 +1,33 @@
 {
-  "name": "download-gambit",
+  "name": "download-mesche",
   "version": "1.0.0",
-  "description": "Downloads a Gambit Scheme build for CI jobs",
+  "description": "Downloads a Mesche Compiler build for CI jobs",
   "main": "dist/index.js",
   "scripts": {
     "build": "ncc build index.js",
-    "publish": "git tag -d v1 && git tag v1 -m 'v1 of daviwil/download-gambit' && git push -f origin v1"
+    "publish": "git tag -d v1 && git tag v1 -m 'v1 of mesche-lang/download-mesche' && git push -f origin v1"
   },
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/github": "^2.2.0",
-    "@actions/tool-cache": "^1.5.5"
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0",
+    "@actions/tool-cache": "^1.7.2"
   },
   "devDependencies": {
-    "@octokit/webhooks": "^7.6.2",
-    "@zeit/ncc": "^0.22.3"
+    "@octokit/webhooks": "^9.23.0",
+    "@vercel/ncc": "^0.33.3"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/daviwil/download-gambit.git"
+    "url": "git+https://github.com/mesche-lang/download-mesche.git"
   },
   "keywords": [
-    "gambit",
-    "scheme",
+    "mesche",
     "github-actions"
   ],
   "author": "David Wilson",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/daviwil/download-gambit/issues"
+    "url": "https://github.com/mesche-lang/download-mesche/issues"
   },
-  "homepage": "https://github.com/daviwil/download-gambit#readme"
+  "homepage": "https://github.com/mesche-lang/download-mesche#readme"
 }

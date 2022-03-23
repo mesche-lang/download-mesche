@@ -1,6 +1,6 @@
-name: Download Gambit Scheme
+name: Download Mesche Compiler
 author: David Wilson
-description: Downloads a Gambit Scheme build for CI jobs
+description: Downloads a Mesche Compiler build for CI jobs
 branding:
   icon: download
   color: yellow
@@ -9,29 +9,29 @@ inputs:
     description: "The GitHub token to use for artifact download requests.  At a minimum the token will will need 'public:repo' permissions."
     required: true
   os:
-    description: "Optional. The target OS of the desired build. Possible values: linux, macos, win-msvc, win-mingw, boot (bootstrapped Gambit source). Defaults to the operating system on which this action is being executed (win-msvc for Windows)."
+    description: "Optional. The target OS of the desired build. Possible values: linux, macos, win-mingw, Defaults to the operating system on which this action is being executed."
     required: false
-    default: ''
+    default: ""
   arch:
     description: "Optional. The architecture of the desired build (ignored when os = boot). Possible values: x86_64, i686. Defaults to x86_64."
     required: false
-    default: 'x86_64'
+    default: "x86_64"
   repo:
-    description: "Optional. The repository from which builds will be downloaded. Defaults to gambit/gambit."
+    description: "Optional. The repository from which builds will be downloaded. Defaults to mesche-lang/cli."
     required: false
-    default: gambit/gambit
+    default: mesche-lang/cli
   workflow-name:
-    description: "Optional. The name of the GitHub Actions workflow that produces build artifacts. Defaults to 'Gambit'"
+    description: "Optional. The name of the GitHub Actions workflow that produces build artifacts. Defaults to 'Mesche CLI - CI'"
     required: false
-    default: 'Gambit'
+    default: "Mesche CLI - CI"
   branch:
     description: "Optional. The branch from which builds will be downloaded. Defaults to master."
     required: false
     default: master
   local-path:
-    description: Optional. The local path to which the Gambit build will be unpacked.  Defaults to ./gambit.
+    description: Optional. The local path to which the Mesche build will be unpacked.  Defaults to ./bin.
     required: false
-    default: './gambit'
+    default: "./bin"
 runs:
-  using: node12
+  using: node14
   main: dist/index.js

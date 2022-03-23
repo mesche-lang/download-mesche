@@ -1,4 +1,4 @@
-name: Download Gambit - CI
+name: Download Mesche - CI
 
 on:
   pull_request:
@@ -9,72 +9,45 @@ on:
       - master
 
 jobs:
-  Windows-msvc:
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - uses: ./ # Use the action at root of the repo
-      with:
-        artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
-
-    - name: Run Gambit
-      run: gsc -v
-
-  Windows-mingw:
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - uses: ./ # Use the action at root of the repo
-      with:
-        os: win-mingw
-        artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
-
-    - name: Run Gambit
-      run: gsc -v
-
   Linux:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - uses: ./ # Use the action at root of the repo
-      with:
-        artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
+      - uses: ./ # Use the action at root of the repo
+        with:
+          artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
 
-    - name: Run Gambit
-      run: gsc -v
+      - name: Run Mesche
+        run: mesche
 
-  MacOS:
-    runs-on: macos-latest
+  # NOTE: Linux is the only supported target for now, test the rest once they
+  # are supported.
 
-    steps:
-    - uses: actions/checkout@v2
+  # Windows:
+  #   runs-on: windows-latest
 
-    - uses: ./ # Use the action at root of the repo
-      with:
-        artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-    - name: Run Gambit
-      run: gsc -v
+  #     - uses: ./ # Use the action at root of the repo
+  #       with:
+  #         os: win-mingw
+  #         artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
 
-  Boot:
-    runs-on: ubuntu-latest
+  #     - name: Run Mesche
+  #       run: mesche
 
-    steps:
-    - uses: actions/checkout@v2
+  # MacOS:
+  #   runs-on: macos-latest
 
-    - uses: ./ # Use the action at root of the repo
-      with:
-        os: boot
-        local-path: ./
-        repo: daviwil/gambit
-        branch: make-dist-ci
-        artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-    - name: List Files
-      run: ls -al ./boot/
+  #     - uses: ./ # Use the action at root of the repo
+  #       with:
+  #         artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
+
+  #     - name: Run Mesche
+  #       run: mesche

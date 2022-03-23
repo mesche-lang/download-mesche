@@ -1,11 +1,11 @@
-# Download Gambit Action
+# Download Mesche Action
 
-This action downloads builds of [Gambit Scheme](http://gambitscheme.org) from CI
-runs of the official [Gambit repository](https://github.com/gambit/gambit) so
-that they can be used in your GitHub Actions workflows.
+This action downloads builds of the [Mesche
+CLI](https://github.com/mesche-lang/cli) from CI runs of its repository so that
+they can be used in your GitHub Actions workflows.
 
-Once the Gambit build has been downloaded, it will be added to `PATH` so that
-`gsi`, `gsi`, etc can all be invoked without a relative path.
+Once the Mesche build has been downloaded, it will be added to `PATH` so that
+`mesche` can be invoked without a relative path.
 
 ## Inputs
 
@@ -17,7 +17,7 @@ This action accepts the following inputs:
 
 ### `os`
 
-The target OS of the desired build. Possible values: `linux`, `macos`, `win-msvc`, `win-mingw`. Defaults to the operating system on which this action is being executed (`win-msvc` for Windows).
+The target OS of the desired build. Possible values: `linux`, `macos`, and `win-mingw`. Defaults to the operating system on which this action is being executed.
 
 ### `arch`
 
@@ -25,11 +25,11 @@ The architecture of the desired build. Possible values: `x86_64`, `i686`. Defaul
 
 ### `repo`
 
-The repository from which builds will be downloaded. Defaults to `gambit/gambit`.
+The repository from which builds will be downloaded. Defaults to `mesche-lang/cli`.
 
 ### `workflow-name`
 
-The name of the GitHub Actions workflow that produces build artifacts. Defaults to `Gambit - CI`.
+The name of the GitHub Actions workflow that produces build artifacts. Defaults to `Mesche CLI - CI`.
 
 ### `branch`
 
@@ -37,7 +37,7 @@ The branch from which builds will be downloaded. Defaults to `master`.
 
 ### `local-path`
 
-The local path to which the Gambit build will be unpacked.  Defaults to `./gambit`.
+The local path to which the Gambit build will be unpacked.  Defaults to `./bin`.
 
 ## Example
 
@@ -46,12 +46,12 @@ jobs:
   Linux:
     runs-on: ubuntu-latest
     steps:
-    - uses: daviwil/download-gambit@v1
+    - uses: daviwil/download-mesche@v1
       with:
         # Make sure to create the secret ARTIFACT_TOKEN with a personal
         # access token containing `public:repo` permissions.
         artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
 
-    - name: Run Gambit
-      run: gsc -v
+    - name: Run Mesche
+      run: mesche
 ```
