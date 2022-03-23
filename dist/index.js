@@ -12424,7 +12424,7 @@ async function getArtifactUrl(api, options) {
 
   console.log(`Looking for workflows in repo: ${owner}/${repo}`);
 
-  const workflows = await api.actions.listRepoWorkflows({
+  const workflows = await api.rest.actions.listRepoWorkflows({
     owner,
     repo,
   });
@@ -12441,7 +12441,7 @@ async function getArtifactUrl(api, options) {
 
   console.log(`Found workflow named ${workflowName}`);
 
-  const runs = await api.actions.listWorkflowRuns({
+  const runs = await api.rest.actions.listWorkflowRuns({
     owner,
     repo,
     branch,
@@ -12462,7 +12462,7 @@ async function getArtifactUrl(api, options) {
 
   console.log(`Found latest run: ${latestRun.id}`);
 
-  const artifacts = await api.actions.listWorkflowRunArtifacts({
+  const artifacts = await api.rest.actions.listWorkflowRunArtifacts({
     owner,
     repo,
     run_id: latestRun.id,
