@@ -12351,6 +12351,7 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
+const fs = __nccwpck_require__(7147);
 const path = __nccwpck_require__(1017);
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
@@ -12384,6 +12385,9 @@ async function downloadMesche() {
 
   let fullPath = await tc.extractZip(downloadPath, meschePath);
   console.log(`Mesche build extracted to local path: ${fullPath}`);
+
+  // Ensure the `mesche` binary is executable
+  fs.chmodSync(path.join(fullPath, "mesche"), 0o755);
 
   // Add local Mesche directory to PATH for future steps
   core.addPath(fullPath);

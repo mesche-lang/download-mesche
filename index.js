@@ -1,3 +1,4 @@
+const fs = require("fs");
 const path = require("path");
 const core = require("@actions/core");
 const github = require("@actions/github");
@@ -31,6 +32,9 @@ async function downloadMesche() {
 
   let fullPath = await tc.extractZip(downloadPath, meschePath);
   console.log(`Mesche build extracted to local path: ${fullPath}`);
+
+  // Ensure the `mesche` binary is executable
+  fs.chmodSync(path.join(fullPath, "mesche"), 0o755);
 
   // Add local Mesche directory to PATH for future steps
   core.addPath(fullPath);
