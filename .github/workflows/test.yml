@@ -17,7 +17,7 @@ jobs:
 
       - uses: ./ # Use the action at root of the repo
         with:
-          artifact-token: ${{ secrets.GITHUB_TOKEN }}
+          artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
 
       - name: Run Mesche
         run: mesche
@@ -34,7 +34,7 @@ jobs:
   #     - uses: ./ # Use the action at root of the repo
   #       with:
   #         os: win-mingw
-  #         artifact-token: ${{ secrets.GITHUB_TOKEN }}
+  #         artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
 
   #     - name: Run Mesche
   #       run: mesche
@@ -47,7 +47,7 @@ jobs:
 
   #     - uses: ./ # Use the action at root of the repo
   #       with:
-  #         artifact-token: ${{ secrets.GITHUB_TOKEN }}
+  #         artifact-token: ${{ secrets.ARTIFACT_TOKEN }}
 
   #     - name: Run Mesche
   #       run: mesche
