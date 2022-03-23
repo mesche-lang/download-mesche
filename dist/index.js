@@ -12386,12 +12386,7 @@ async function downloadMesche() {
   console.log(`Mesche build extracted to local path: ${fullPath}`);
 
   // Add local Mesche directory to PATH for future steps
-  if (buildOptions.os !== "boot") {
-    // Add folder to cache
-    // https://github.com/actions/toolkit/tree/master/packages/tool-cache#cache
-
-    core.addPath(path.join(fullPath, "bin"));
-  }
+  core.addPath(fullPath);
 }
 
 function getDefaultOS() {
