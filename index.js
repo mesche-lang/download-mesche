@@ -5,7 +5,7 @@ const tc = require("@actions/tool-cache");
 
 async function downloadMesche() {
   const token = core.getInput("artifact-token", { required: true });
-  const api = new github.GitHub(token);
+  const api = new github.getOctokit(token);
   const [owner, repo] = core.getInput("repo").split("/");
   const localPath = core.getInput("local-path");
 
