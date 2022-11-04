@@ -19,11 +19,11 @@ inputs:
   repo:
     description: "Optional. The repository from which builds will be downloaded. Defaults to mesche-lang/cli."
     required: false
-    default: mesche-lang/cli
+    default: mesche-lang/mesche
   workflow-name:
     description: "Optional. The name of the GitHub Actions workflow that produces build artifacts. Defaults to 'Mesche CLI - CI'"
     required: false
-    default: "Mesche CLI - CI"
+    default: "Build Mesche"
   branch:
     description: "Optional. The branch from which builds will be downloaded. Defaults to master."
     required: false
